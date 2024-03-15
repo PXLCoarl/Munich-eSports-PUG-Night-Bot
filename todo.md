@@ -13,9 +13,9 @@
 
 
 # Important
-- write tutorial
--[x] write readme
--[x] update github
+- [ ] write tutorial
+- [x] write readme
+- [x] update github
 
 
 
