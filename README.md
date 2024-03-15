@@ -17,8 +17,7 @@ This Discord Bot manages the PUG Night for the [Munich eSports Discord](https://
 - [ ] Clean up alot of code - sometimes i wonder what i was cooking, sometimes it is just bad ¯\\\_(ツ)_/¯
 - [ ] Seasonal leaderboards and "Hall of Fame" on the webinterface - I hate html so that might take a while...
 - [ ] Finish this readme
-
-
+---
 ### Commands:
 |Command|Description|
 |-------|-----------|
