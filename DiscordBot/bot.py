@@ -41,7 +41,7 @@ bot = PugBot(intents=intents, activity=activity, help_command=CustomHelp())
 async def on_api_call(data: dict) -> None:
     '''
     Very much work in Progress, 
-    since matchZy's implementation does not work yet
+    since MatchZy's implementation does not work yet
     I also have not worked on this.
     '''
     event: str = data.get("event")

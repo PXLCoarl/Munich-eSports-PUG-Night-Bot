@@ -4,9 +4,6 @@ from .helpers import fetch_mappool, fetch_team, fetch_captains
 
 async def match_json(uuid):
     mappool = fetch_mappool(uuid)
-    #team1 = await fetch_team(uuid=uuid, team_flag='1')
-    #team2 = await fetch_team(uuid=uuid, team_flag='2')
-    #captain1, captain2 = await fetch_captains(uuid=uuid)
     with sqlite3.connect('static/app.db') as conn:
         cursor = conn.cursor()
         cursor.execute("SELECT id FROM match WHERE uuid = ?", (uuid,))

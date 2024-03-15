@@ -21,7 +21,7 @@ class RCON(commands.Cog):
     async def server_rcon(self, interaction: Interaction, mode: Literal['gamestate', 'end_match', 'debug'], server_id: int) -> None:
         match mode:
             case 'gamestate':
-                server_data = await fetch_server_data(server_id)
+                server_data = await fetch_server_data(server_id=server_id)
                 response = json.loads(await generic_rcon(server_data['IP'], server_data['RCON_PORT'], server_data['RCON_PASSWD'], command='get5_status', name=f'/server gamestate #{server_id}'))
                 gamestate = response['gamestate']
                 if gamestate == 'none':

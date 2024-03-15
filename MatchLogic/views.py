@@ -60,40 +60,14 @@ class VoteSelect(Select):
             await push_match(server_id=server_id, match_id=match_id)
             value = f'```{interaction.user.name} picked: {voted_map}```'
             embed.add_field(name="", value=value, inline=False)
-            
-            # NEEDS FIXING
-            
-            if server_details["PASSWD"] is not None:
-                embed.add_field(name='Server details:', value=f'||```connect {server_details['IP']}:{server_details['PORT']}; password {server_details['PASSWD']}```||Copy this into your cs2 console to connect to the pug.', inline=False)
-            else:
-                embed.add_field(name='Server details:', value=f'||```connect {server_details['IP']}:{server_details['PORT']}```||Copy this into your cs2 console to connect to the pug.', inline=False)
+            embed.add_field(
+                name='Server details:',
+                value=(f'||```connect {server_details["IP"]}:{server_details["PORT"]}; password {server_details["PASSWD"]}```||Copy this into your cs2 console to connect to the pug.'
+                    if server_details["PASSWD"] != ''
+                    else f'||```connect {server_details["IP"]}:{server_details["PORT"]}```||Copy this into your cs2 console to connect to the pug.'),
+                inline=False
+            )
             await interaction.message.edit(embed=embed, view=None)
             
         voting_team = toggle_voting_team(voting_team)
         await insert_voting_team(uuid=uuid, voting_team=voting_team)
-        
-        
-        
-        #to do:
-        '''
-            - DONE - create match json file
-            - Done - use servers.json for pug server 
-                for server in servers:
-                    if gamestate is none use that server (make this external utility and also invoke this once when /pug is used so
-                    no pug starts if there arent any free server!)
-            - Done - push match json to free server using rcon
-            
-        '''
-        
-        
-        """if len(map_pool) != 1:
-            await remove_map(uuid=uuid, map=voted_map)
-            value = f'{interaction.user.name} banned: {voted_map}'
-            await update_embed(embed, value)
-            placeholder = 'Pick a map' if len(map_pool) == 2 else 'Ban a map'
-            await interaction.message.edit(embed=embed, view=VoteView(uuid=uuid, placeholder=placeholder))
-        else:
-            value = f'```{interaction.user.name} picked: {voted_map}```'
-            embed.add_field(name="", value=value, inline=False)
-            embed.add_field(name='Server details:', value='||```connect 192.168.188.22:29015 ```||Copy this into your cs2 console to connect to the pug.', inline=False)
-            await interaction.message.edit(embed=embed, view=None)"""

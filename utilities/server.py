@@ -33,8 +33,6 @@ async def get_servers() -> List[Dict[str, Union[int, str]]]:
 async def query_servers(serverlist: list) -> int | None:
     from . import logger
     for server in serverlist:
-        from icecream import ic
-        ic(server)
         try:
             with Client(server['IP'], server['RconPort'], passwd=server['RconPassword'], timeout=1.5) as client:
                 response = client.run('get5_status')
@@ -50,7 +48,7 @@ async def query_servers(serverlist: list) -> int | None:
             
     return None
 
-async def fetch_server_data(server_id) -> dict[str, Any]:
+async def fetch_server_data(server_id: int) -> dict[str, Any]:
     with open('static/servers.json', 'r') as file:
         data = json.load(file)
         servers = data['Servers']
@@ -62,5 +60,5 @@ async def fetch_server_data(server_id) -> dict[str, Any]:
                 rcon_port: int = server['RconPort']
                 rcon_passwd: str = server['RconPassword']
                 return {'IP':server_ip, 'PORT':server_port, 'PASSWD': passwd,'RCON_PORT':rcon_port, 'RCON_PASSWD':rcon_passwd}
-            else:
-                return None
+        else:
+            return None

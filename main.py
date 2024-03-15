@@ -1,13 +1,24 @@
 from utilities import logger
 from DiscordBot import bot
 from api import run_flask
-import os, sqlite3, discord, threading, signal
+import os, sqlite3, discord, threading
 from dotenv import load_dotenv
 
 
-db_path = 'static/app.db'
+def start_up() -> str:
+    db_path: str = 'static/app.db'
+    create_dotenv(db_path=db_path)
+    
+    create_db(db_path=db_path)
+    
+    create_pug_tables(db_path=db_path)
+    
+    DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
+    
+    return DISCORD_TOKEN
 
-def create_dotenv():
+
+def create_dotenv(db_path:str) -> None:
     if not os.path.exists('.env'):
         with open('.env', 'w') as file:
             file.write(
@@ -28,7 +39,7 @@ WEB_INTERFACE=5050
     else:
         load_dotenv('.env')
 
-def create_pug_tables():
+def create_pug_tables(db_path:str) -> None:
     with sqlite3.connect(db_path) as conn:
         cursor = conn.cursor()
         
@@ -77,7 +88,7 @@ def create_pug_tables():
         
         conn.commit()
 
-def create_db():
+def create_db(db_path:str):
     database_folder = 'static'
     if not os.path.exists(database_folder):
         os.mkdir(database_folder)
@@ -97,19 +108,12 @@ def create_db():
     logger.info("Loaded Database")
 
 
-create_dotenv()
-create_db()
-create_pug_tables()
-
-
-flask_thread = threading.Thread(target=run_flask)
-
-DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
-
-
 
 if __name__ == '__main__':    
     
+    DISCORD_TOKEN = start_up()
+    
+    flask_thread = threading.Thread(target=run_flask)
     flask_thread.start()
     
     try:

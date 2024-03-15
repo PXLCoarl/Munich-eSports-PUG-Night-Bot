@@ -1,6 +1,5 @@
 import sqlite3
 from functools import partial
-from typing import Callable, Any
 from .get_logger import setup_logger
 from .dataclasses import MapPools, MatchContext, MatchData, PugContext, TestData
 from .database import query_db, inject_db, query_app_context, update_match_context, insert_message_id

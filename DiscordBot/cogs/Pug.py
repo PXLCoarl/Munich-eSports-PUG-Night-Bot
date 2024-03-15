@@ -23,7 +23,6 @@ class PUG(commands.Cog):
     @app_commands.command(name="pug", description="starts a pug queue")
     @app_commands.checks.has_any_role(*appsettings['roles'])
     async def pug(self, interaction: Interaction):
-        from icecream import ic
         servers = await get_servers()
         if servers == []:
             await send_error_response(interaction=interaction, error='No server data found. Check servers.json for mistakes.')
@@ -107,7 +106,7 @@ class QueueView(View):
         super().__init__(timeout=None)
         self.add_item(QueueButton(label='Join', style=ButtonStyle.green, id='Join'))
         self.add_item(QueueButton(label='Leave', style=ButtonStyle.red, id='Leave'))
-        #self.add_item(QueueButton(label='FS', style=ButtonStyle.grey, id='FS')) #just for debugging!
+        self.add_item(QueueButton(label='FS', style=ButtonStyle.grey, id='FS')) #just for debugging!
         
         
 class QueueButton(Button):
@@ -128,18 +127,15 @@ class QueueButton(Button):
         if self.id == 'FS':
             appsettings = get_appsettings()
             for priv_role in appsettings['roles']:
-                from icecream import ic
-                ic(priv_role)
                 role = interaction.guild.get_role(priv_role)
-                ic(role)
-                if role in interaction.user.roles:
-                    await interaction.response.defer()
-                    await force_start(interaction)
-                    embed = EmbedBuilder.error_embed(title="PUG | Error", desc='Need at least 2 people in queue', username=interaction.user.name)
-                    await interaction.followup.send(embed=embed, ephemeral=True)
-                else:
-                    return
-                    '''embed = EmbedBuilder.error_embed(title="PUG | Error", desc='You need to be \'Pug Leader\' to use this button!', username=interaction.user.name)
+                #if role in interaction.user.roles:
+                await interaction.response.defer()
+                await force_start(interaction)
+                embed = EmbedBuilder.error_embed(title="PUG | Error", desc='Need at least 2 people in queue', username=interaction.user.name)
+                await interaction.followup.send(embed=embed, ephemeral=True)
+                #else:
+                #    return
+                ''' embed = EmbedBuilder.error_embed(title="PUG | Error", desc='You need to be \'Pug Leader\' to use this button!', username=interaction.user.name)
                     await interaction.response.send_message(embed=embed, ephemeral=True)'''
                 
                 
