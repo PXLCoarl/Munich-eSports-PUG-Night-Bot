@@ -7,7 +7,7 @@ from DiscordBot import EmbedBuilder
 from typing import Any
 
 #i know it is ugly
-def toggle_voting_team(current_voting_team):
+def toggle_voting_team(current_voting_team: int) -> int:
     return 1 if current_voting_team == 2 else 2
 
 class VoteView(View):

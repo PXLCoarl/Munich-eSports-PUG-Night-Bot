@@ -9,7 +9,7 @@ class CustomHelp(commands.HelpCommand):
         bot = ctx.bot
         command_list = [
             f'`/{command.name}` - {command.description}' + 
-            (' - (requires a privileged Role!)' if command.checks else '')
+            (' - (needs Staff!)' if command.checks else '')
             for cog in bot.cogs.values()
             for command in cog.get_app_commands()
         ]                

@@ -3,6 +3,11 @@
 - make map pool votable before teams are created
 - implement BO5 BO3 BO1
 - maybe add 1v1, 2v2, 5v5 mode?
+- Need to tweak default elo (currently 800 -> maybe a tad lower who knows)
+
+# Bugs:
+- weird edge cases where urls are not registered when there is a / behind the url
+
 
 # Done:
 - help command

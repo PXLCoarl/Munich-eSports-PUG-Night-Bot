@@ -49,10 +49,3 @@ async def handle_match(uuid, interaction: Interaction):
         inline=True
         )
     await interaction.edit_original_response(embed=embed, view=VoteView(uuid=uuid, placeholder='Ban a map'))
-    
-    
-    
-    
-    
-        
-    
