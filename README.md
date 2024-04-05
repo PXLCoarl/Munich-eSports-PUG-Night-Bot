@@ -1,40 +1,64 @@
 # PUG BOT
 This Discord Bot manages the PUG Night for the [Munich eSports Discord](https://discord.com/invite/muc)
 
-[the current to do list](todo.md)
+
 
 [changelog (for rewrite)](change_log.md)
 
 
 
-## A comprehensive list of features:
 
-- [x] Fully automatic queue system
-- [x] Teambalancing through FACEIT Elo
-- [x] Random captains as well as captains vote
-- [x] JSON configuration files for server and privileged roles
-- [x] Support for RCON through Discord
-- [x] Fully functional webinterface with automatic demo uploads and backend api
-- [x] Alot more stuff that i am too lazy to put here since markdown is annoying
+# Roadmap
 
-## My Todo list:
-- [ ] Make map pool votable (technically implemented already, but no logic for it is written)
-- [ ] Clean up database design (it is really aweful and convoluted for what could be two tables)
-- [ ] Clean up alot of code - sometimes i wonder what i was cooking, sometimes it is just bad ¯\\\_(ツ)_/¯
-- [ ] Seasonal leaderboards and "Hall of Fame" on the webinterface - I hate html so that might take a while...
-- [ ] Finish this readme
+## Basics
+
+- [x] .env and appsettings.json config files for various api tokens, cs2 servers and other settings
+- [x] database for users and matches
+- [x] running bot
+
+## Implement all necessary commands
+
+- [x] implement /profile
+- [x] implement /pug
+- [x] implement /rcon
+- [ ] implement /help
+
+## Bot sided Match Logic
+
+- [x] pug interface
+- [x] support for custom map pools
+- [x] support for BO1/BO3/BO5
+- [x] map voting
+- [ ] pushing matches onto a free server
+
+## Webinterface
+
+- [ ] setup webinterface
+- [ ] setup api
+- [ ] leaderboards
+
+## Far Future - Nice to haves
+
+- [ ] ...
+- [ ] ...
+- [ ] ...
+
+
+# To Do list
+
+- [todo.md](todo.md)
+
+
 ---
-### Commands:
+### Current Commands:
 |Command|Description|
 |-------|-----------|
-|/help|Shows more or less this same thing|
-|/whoami|Shows information about the steam account you have linked|
-|/steam {url}|Link your steam account to your discord account|
+|/profile|Manage ur bot "profile"|
 |Require privileged role:||
-|/pug|Starts a new queue|
+|/pug {map_pool} {bo1/bo3/bo5}|Starts a new queue|
 |/rcon {mode} {server}|Send a predefined RCON command to a certain server|
 
 ### Host it yourself:
-To be honest, you really shouldnt use this bot for you personal projects, since most things are currently hardcoded either to my test server or the Munich eSports Discord,
+To be honest, you really shouldnt use this bot for you personal projects, altho basically nothing is hardcoded anymore, its far from usable,
 but if you are knowledgeable with discord.py and python in general you could probably make it work.
 Once this project is at a stage where i feel comfortable with it i will release a public version
