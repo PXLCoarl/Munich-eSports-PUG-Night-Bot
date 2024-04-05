@@ -26,8 +26,12 @@ class VoteView(View):
 
 '''
 Shower Thoughts:
-- Make MatchHandler an extension of View, so i can implement the components directly into the class, might be worthwile - is at least worth a test
+  - Make MatchHandler an extension of View, so i can implement the components directly into the class, might be worthwile - is at least worth a test
+    Update: I tried it and it is so much better, faster and cleaner to implement. (FUCK)
 '''
+
+# To Do:
+# - Delete this file and rewrite Pug.py (as in DebugBot)
 
 
 class Match_Handler():
