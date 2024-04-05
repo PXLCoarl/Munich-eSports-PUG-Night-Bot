@@ -1,6 +1,10 @@
 # PUG BOT
 This Discord Bot manages the PUG Night for the [Munich eSports Discord](https://discord.com/invite/muc)
 
+[the current to do list](todo.md)
+
+
+
 ## A comprehensive list of features:
 
 - [x] Fully automatic queue system
