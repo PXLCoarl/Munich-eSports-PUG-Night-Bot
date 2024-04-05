@@ -1,3 +1,7 @@
+** This branch is no longer used because i started to rewrite the bot **
+-> see 'rewrite'-branch for more
+
+
 # PUG BOT
 This Discord Bot manages the PUG Night for the [Munich eSports Discord](https://discord.com/invite/muc)
 
