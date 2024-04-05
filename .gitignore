@@ -2,31 +2,13 @@
 __pycache__/
 *.pyc
 
-# Virtual Environment
-venv/
+#Venv
 .venv/
-env/
-ENV/
 
-# .env file (contains sensitive information)
+# DataFiles
 .env
-
-# Any config json (may contain sensitive information)
 *.json
-
-# Database
-static/app.db
-static/*.db
-
-# Flask
-api/demos/
-api/matches/
-api/static/
-api/templates/
-
-
-# Other
-*.do
+*.db
 
 # VS Code
 .vscode/

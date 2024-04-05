@@ -1,23 +1,25 @@
 from discord.ext import commands
+from discord.app_commands import AppCommand
+from main import PugBot
+from utilities import logger
 
-class sync(commands.Cog):
-    def __init__(self, bot):
+
+async def setup(bot: PugBot) -> None:
+    await bot.add_cog(Sync(bot))
+
+
+class Sync(commands.Cog):
+    def __init__(self, bot: PugBot) -> None:
         self.bot = bot
-        
-    @commands.Cog.listener()
-    async def on_ready(self):
-        print("sync cog loaded")
         
     @commands.command()
     @commands.is_owner()
-    async def sync(self, ctx:commands.context.Context) -> None:        
+    async def sync(self, ctx: commands.Context) -> None:
         fmt = await ctx.bot.tree.sync(guild=ctx.guild)
         await ctx.message.delete()
-        await ctx.send(
-            f"Synced {len(fmt)} commands to the current guild",
-            ephemeral=True
-            )
+        commands = [command.name for command in fmt]
+        logger.info(f'Synced command(s) {', '.join(commands)} to "{ctx.guild.name}"')
+        answer = await ctx.send(f'Synced {', '.join(commands)}.')
+        await answer.delete(delay=5)
         return
-    
-async def setup(bot):
-    await bot.add_cog(sync(bot))
+        

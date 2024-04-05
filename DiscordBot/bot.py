@@ -1,6 +1,9 @@
-from discord.ext import commands
 import discord, os
-from utilities import logger, DBOps
+from discord import Intents, CustomActivity
+from discord.ext import commands
+from utilities import logger
+
+
 
 class CustomHelp(commands.HelpCommand):
     async def send_bot_help(self, mapping):
@@ -12,48 +15,22 @@ class CustomHelp(commands.HelpCommand):
             (' - (needs Staff!)' if command.checks else '')
             for cog in bot.cogs.values()
             for command in cog.get_app_commands()
-        ]                
+        ]
         await ctx.send('\n'.join(command_list))
+        return
+
 
 
 class PugBot(commands.Bot):
-    def __init__(self,intents:discord.Intents, activity, help_command:commands.HelpCommand):
-        super().__init__(command_prefix="#", intents=intents, activity=activity, help_command=help_command, status=discord.Status.dnd)
-    
+    def __init__(self, *, intents: Intents, activity: CustomActivity, help_command: commands.HelpCommand):
+        super().__init__(command_prefix='#', intents=intents, activity=activity, help_command=help_command, status=discord.Status.online)
+        
     async def on_ready(self):
-        async def load():
-            for filename in os.listdir("DiscordBot/cogs"):
-                if filename.endswith("py"):
-                    await self.load_extension(f"DiscordBot.cogs.{filename[:-3]}")
-                    
-        logger.info(f'Started Bot as: {self.user}')
-        await load()
-
-intents = discord.Intents.all()
-activity = discord.CustomActivity(name='Use /help for more information')
-bot = PugBot(intents=intents, activity=activity, help_command=CustomHelp())
-
-
-
-# Custom Events:
-
-@bot.event
-async def on_api_call(data: dict) -> None:
-    '''
-    Very much work in Progress, 
-    since MatchZy's implementation does not work yet
-    I also have not worked on this.
-    '''
-    event: str = data.get("event")
-    match_id: int = int(data.get("matchid"))
-    _: list[int] = await DBOps.get_message_id(query_value=match_id)
-    message_id: int = _[0]
-    match event:
-        case "series_start":
-            logger.info(f"{event} received")
-        case "map_result":
-            logger.info(f"{event} received")
-        case "series_end":
-            logger.info(f"{event} received")
-        case "going_live":
-            logger.info(f'{event} received')
+        files = [filename for filename in os.listdir('DiscordBot/cogs') if filename.endswith('.py')]
+        for filename in files:
+            try:
+                await self.load_extension(f'DiscordBot.cogs.{filename[:-3]}')
+                logger.info(f'Loaded extension: {filename[:-3]}')
+            except Exception as e:
+                logger.error(f'Failed to load extension {filename[:-3]}: {e}')
+        logger.info(f'Started bot as {self.user}')
