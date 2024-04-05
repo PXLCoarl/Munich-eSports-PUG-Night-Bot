@@ -1,4 +1,4 @@
-from .Database import DataBaseUtils
+from .database import DataBaseUtils
 from .Models import User
 from .Runtime import AppSettings, MapPools
 from .Embeds import Embeds

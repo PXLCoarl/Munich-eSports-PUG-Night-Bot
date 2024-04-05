@@ -27,17 +27,26 @@ def load_appsettings(appsettings_path: str) -> dict[str, tuple | list]:
     with open(appsettings_path, 'r') as file:
         data: dict = json.load(file)   
         roles: tuple = tuple(data['Settings']['priv_roles'])
-        if roles == ():
-            raise ValueError("No privileged roles specified in appsettings.json - please check your configuration!")
-        guilds: tuple[Object] = tuple([Object(guild) for guild in data['Settings']['guilds']])
-        if guilds == ():
-            raise ValueError("No guilds specified in appsettings.json - please check your configuration!")
-        servers: list[dict[str, str | int]] = data['Servers']
-        if servers == []:
-            raise ValueError("No servers specified in appsettings.json - please check your configuration!")
-        matches_url: str = data.get("matches_url")
-        if matches_url == '':
-            raise ValueError("No api url specified in appsettings.json - please check your configuration!")
+        try:
+            if roles == ():
+                raise ValueError("No privileged roles specified in appsettings.json - please check your configuration!")
+            guilds: tuple[Object] = tuple([Object(guild) for guild in data['Settings']['guilds']])
+            if guilds == ():
+                raise ValueError("No guilds specified in appsettings.json - please check your configuration!")
+            servers: list[dict[str, str | int]] = data['Servers']
+            if servers == []:
+                raise ValueError("No servers specified in appsettings.json - please check your configuration!")
+            matches_url: str = data.get("matches_url")
+            if matches_url == '':
+                raise ValueError("No api url specified in appsettings.json - please check your configuration!")
+        except ValueError as error:
+            print(f"{error = }")
+            import sys
+            sys.exit()
+        except KeyError as error:
+            print(f"{error = }")
+            import sys
+            sys.exit()
         
         appsettings: dict[str, tuple|list|str] = {'roles': roles, 'guilds': guilds, 'servers': servers, 'matches_url': matches_url}
 
