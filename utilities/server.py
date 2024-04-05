@@ -26,7 +26,7 @@ async def get_servers() -> List[Dict[str, Union[int, str]]]:
     ]
     '''
     with open('static/servers.json', 'r') as file:
-        data = json.load(file)
+        data: dict = json.load(file)
         serverlist: List[Dict[str, Union[int, str]]] = data.get("Servers", [])
     return serverlist
 

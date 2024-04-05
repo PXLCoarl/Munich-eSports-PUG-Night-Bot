@@ -43,7 +43,7 @@ class RCON(commands.Cog):
                     await interaction.response.send_message(embed=embed, ephemeral=True)
                     return
                 server_data = await fetch_server_data(server_id)
-                response = await generic_rcon(server_data['IP'], server_data['RCON_PORT'], server_data['RCON_PASSWD'], command='matchzy_loadmatch_url "https://pugs.pxlcoarl.de/api/matches/match_1.json', name=f'/debug #{server_id}')
+                response = await generic_rcon(server_data['IP'], server_data['RCON_PORT'], server_data['RCON_PASSWD'], command='matchzy_loadmatch_url "https://pugs.pxlcoarl.de/api/matches/match_debug.json', name=f'/debug #{server_id}')
                 embed = EmbedBuilder.info_embed(f'Server response:\n{response}', username=interaction.user.name)
                 logger.info(f"{interaction.user.name} startet a match on Server #{server_id}")
                 await interaction.response.send_message(embed=embed, ephemeral=True)
