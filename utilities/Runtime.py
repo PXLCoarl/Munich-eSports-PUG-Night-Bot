@@ -57,7 +57,7 @@ def load_appsettings(appsettings_path: str) -> dict[str, tuple | list]:
 class AppSettings():
     def __init__(self) -> None:
         appsettings = load_appsettings(os.getenv('APP_SETTINGS'))
-        self.token: str = os.getenv('TOKEN')
+        self.token: str = os.getenv('DISCORD_TOKEN')
         self.faceit_token: str = os.getenv('FACEIT_TOKEN')
         self.db_uri: str = os.getenv('DB_URI')
         self.matches_url: str = appsettings.get('matches_url')
