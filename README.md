@@ -2,6 +2,7 @@
 This Discord Bot manages the PUG Night for the [Munich eSports Discord](https://discord.com/invite/muc)
 
 [the current to do list](todo.md)
+[changelog (for rewrite)](change_log.md)
 
 
 
